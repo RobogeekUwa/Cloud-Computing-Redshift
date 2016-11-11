@@ -18,9 +18,10 @@ The AWS Redshift server can be accessed via access Redshift [link!]( https://us-
 
 As part of implementation, a Redshift cluster and an S3 bucket was created using the AWS console and the BITRE data files were downloaded and kept in the local machine. The data ware house In its core uses a ETL process as part of data cleaning and preprocessing. There were two data files ‘fatalities.csv’ and ‘crashes.csv’. Both these data files were mostly similar but differed only in the case of Age variable included in the fatalities data file which could be used to identify the age of the victim. And the data files has some missing data and unknown columns which needed to be cleaned and a preprocessing of data is essential for the successful BI analysis in future. The data files needed to be free of empty, incorrect and badly formatted values and an ETL process was essential. 
 But if I made use of any existing preprocessing tools available on the internet the use of actual coding will be minimal for this (apart from all the sql queries written for analyzing the data). So I decided to use a python program to clean and cleanse the data and sort them out based on the year. The python program was written in such a way that it could be used to clean both files (single program for both data file) and accepts a year as a variable which will handle the data according to the year specified. For eg 
-** Python preprocessing.py –f fatalities.csv  2016 **
+#### Python preprocessing.py –f fatalities.csv  -y 2016 
+
 Will produce the fatalities data set corresponding to only 2016 and 
-** Python preprocessing.py –f fatalities.csv  2010-2016 **
+#### Python preprocessing.py –f fatalities.csv  -y 2010-2016 
 Will have data files from 2010 to 2016 and so on. 
  This preprocessed data is then loaded into S3 buckets. Necessary tables are set up in the server and data is copied to database using ‘copy’ command. The advantage of using copy command is that its faster and safer than other means of loading. Proper IAM (access management settings) has to be done in order to copy the data from multiple cloud services. It increases security of data loading and also misuse of data by third parties without proper authorization. The copy command used is
 
